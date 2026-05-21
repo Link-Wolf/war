@@ -2,7 +2,7 @@
 
 <div align="center">
  <a href="https://github.com/Link-Wolf/war" title="Go to GitHub repo"><img src="https://img.shields.io/static/v1?label=Link-Wolf&message=war&color=blue&logo=github&style=for-the-badge" alt="Link-Wolf - war"></a>
- <a href="https://"><img src="https://img.shields.io/badge/Year-2022-ffad9b?style=for-the-badge" alt="Year - 2022"></a>
+ <a href="https://"><img src="https://img.shields.io/badge/Year-2026-ffad9b?style=for-the-badge" alt="Year - 2026"></a>
  <a href="https://github.com/Link-Wolf/war/stargazers"><img src="https://img.shields.io/github/stars/Link-Wolf/war?style=for-the-badge&color=yellow" alt="stars - war"></a>
  <a href="https://github.com/Link-Wolf/war/network/members"><img src="https://img.shields.io/github/forks/Link-Wolf/war?style=for-the-badge&color=lightgray" alt="forks - war"></a>
  <a href="https://github.com/Link-Wolf/war/issues"><img src="https://img.shields.io/github/issues/Link-Wolf/war?style=for-the-badge&color=orange" alt="issues - war"></a>

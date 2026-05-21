@@ -29,10 +29,18 @@ CFLAGS	 += -fno-semantic-interposition
 CFLAGS	 += -fvisibility=hidden
 NFLAGS	  =	-f elf64
 
+CLN_COLOR	=	"\e[38;5;221m"
+FCLN_COLOR	=	"\e[38;5;215m"
+OBJ_COLOR	=	"\e[38;5;203m"
+BIN_COLOR	=	$(OBJ_COLOR)
+ERASE_LINE	=	"\e[2K\r"
+
 CC		 =	clang
 RM		 =	@rm -rf
 MKDIR	 =	@mkdir -p
 NASM	 =	@nasm
+
+all: $(NAME)
 
 comma := ,
 _IP_VALID := $(shell echo "$(EVIL_IP)" | awk -F. '\
@@ -49,25 +57,20 @@ EVIL_IP := RUNTIME_PATCH_SIZE($(subst .,$(comma) ,$(EVIL_IP)))
 EVIL_IP := -DVIRTUAL_MAP_STRIDE="$(EVIL_IP)"
 endif
 
-echo:
-	echo $(EVIL_IP)
-
-all: $(NAME)
-
 clean:
 	$(RM) $(ODIR)
+	@printf $(CLN_COLOR)"\tClean \t\t\t\t[ ✓ ]\n\e[m"
 
 fclean: clean
 	$(RM) $(NAME)
+	@printf $(FCLN_COLOR)"\tBinary clean \t\t\t[ ✓ ]\n\e[m"
 
 re: fclean all
-
-bonus: CFLAGS += -DBONUS
-bonus: re
 
 $(ODIR)%.o.virgin:  $(SDIR)%.c
 	$(MKDIR) $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf $(ERASE_LINE)$(OBJ_COLOR)"\t"$@"\e[m"
 
 $(ODIR)%.o:  $(SDIR)%.c $(VIRGIN)
 	$(MKDIR) $(dir $@)
@@ -86,6 +89,7 @@ $(ODIR)%.o:  $(SDIR)%.c $(VIRGIN)
 		-DANCHOR="$$ANCHOR" \
 		$(EVIL_IP) \
 		-c $< -o $@
+	@printf $(ERASE_LINE)$(OBJ_COLOR)"\t"$@"\e[m"
 
 $(VIRGIN): $(addsuffix .virgin, $(OBJS))
 	@$(CC) $(CFLAGS) -g -no-pie $^ -o $@
@@ -97,6 +101,7 @@ $(NAME): $(OBJS)
 	  --remove-section .comment \
 	  --remove-section .note \
 	 $@
+	@printf $(ERASE_LINE)$(BIN_COLOR)"\t"$@"\t\t\t\t[ ✓ ]\n\e[m"
 
 print_curare: curare
 	@hexdump -e '16/1 "%02x " "\n"' curare | xargs | sed 's/ /, /g' | sed 's/^/ /g' | sed 's/ / 0x/g'

@@ -31,29 +31,29 @@ grep
 cat
 wc
 cp
-# mv
-# rm
-# mkdir
-# rmdir
-# touch
-# chmod
-# chown
-# pwd
-# whoami
-# id
-# uname
-# hostname
-# date
-# sleep
-# true
-# false
-# head
-# tail
-# cut
-# sort
-# uniq
-# basename
-# dirname
+mv
+rm
+mkdir
+rmdir
+touch
+chmod
+chown
+pwd
+whoami
+id
+uname
+hostname
+date
+sleep
+true
+false
+head
+tail
+cut
+sort
+uniq
+basename
+dirname
 realpath
 stat
 )

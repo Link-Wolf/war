@@ -50,7 +50,7 @@
 ## Goal
 
 <div align="center">
-	<img src="assets/war_illu.jpg" alt="war illu", height="500px">
+	<img src="assets/war_illu_by_Liger-Inuzuka.jpg" alt="war illu by Liger-Inuzuka on Deviantart", height="500px">
 </div>
 </br>
 

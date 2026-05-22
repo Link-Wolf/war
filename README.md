@@ -109,7 +109,7 @@ The program is written in C and asm. It is designed to run on Linux x86-64 syste
 
 ## Usage examples
 
-64Running the virus infects all ELF64 binaries found in `/tmp/test` and `/tmp/test2`.
+Running the virus infects all ELF64 binaries found in `/tmp/test` and `/tmp/test2`.
 
 Each infected file carries a signature of the form:
 
